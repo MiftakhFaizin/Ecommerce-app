@@ -12,7 +12,11 @@ const Navbar = () => {
             </ul>
             <ul className="flex gap-[15px] items-center">
                 {localStorage.login ? <NavLink to="" className="font-sans font-semibold text-black text-[15px]">Cart</NavLink> : null}
-                {!localStorage.login ? <NavLink to="/LoginPage" className="font-sans font-semibold text-black text-[15px]">Login</NavLink> : null}
+                {!localStorage.login ? 
+                <NavLink to="/LoginPage" className="font-sans font-semibold text-black text-[15px]">Login</NavLink> 
+                : 
+                <NavLink onClick={() => {localStorage.removeItem("login")}} to="/LoginPage" className="font-sans font-semibold text-black text-[15px]">Logout</NavLink>
+                }
             </ul>
         </div>
     )

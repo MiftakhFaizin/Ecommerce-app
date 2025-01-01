@@ -1,4 +1,12 @@
+import { useNavigate } from "react-router-dom"
+
 const LoginPage = () => {
+    const navigate = useNavigate()
+    const handleLoginBtn = () => {
+        localStorage.setItem("login", "true")
+        navigate("/")
+    } 
+
     return (
         <div className="flex justify-center items-center h-screen">
             <div className="flex flex-col justify-around border border-slate-300 rounded-md shadow-md shadow-slate-400 py-[20px] px-[30px]">
@@ -7,7 +15,7 @@ const LoginPage = () => {
                     <input type="text" placeholder="username" className="border-b border-slate-500 outline-none font-sans text-[15px] pb-[10px]"/>
                     <input type="password" placeholder="password" className="border-b border-slate-500 outline-none font-sans text-[15px] pb-[10px]"/>
                 </div>
-                <button className="bg-black rounded-md font-sans text-white font-bold py-[7px] px-[10px]">Login</button>
+                <button onClick={handleLoginBtn} className="bg-black rounded-md font-sans text-white font-bold py-[7px] px-[10px]">Login</button>
             </div>
         </div>
     )
