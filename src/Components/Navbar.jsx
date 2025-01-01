@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom"
+import CartIcon from "../assets/shopping-cart-icon.png";
 
 const Navbar = () => {
     return (
@@ -11,7 +12,7 @@ const Navbar = () => {
                 <NavLink to="/women's clothing" className={({ isActive }) => (isActive ? "font-sans font-semibold text-red-500 text-[15px]" : "font-sans font-semibold text-black text-[15px]")}>Women's clothing</NavLink>
             </ul>
             <ul className="flex gap-[15px] items-center">
-                {localStorage.login ? <NavLink to="" className="font-sans font-semibold text-black text-[15px]">Cart</NavLink> : null}
+                {localStorage.login ? <NavLink to="" className="font-sans font-semibold text-black text-[15px]"><img className="w-[25px] h-[25px]" src={CartIcon} /></NavLink> : null}
                 {!localStorage.login ? 
                 <NavLink to="/LoginPage" className="font-sans font-semibold text-black text-[15px]">Login</NavLink> 
                 : 
