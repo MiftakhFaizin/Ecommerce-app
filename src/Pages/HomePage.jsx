@@ -40,7 +40,7 @@ const HomePage = () => {
                                 </div>
                                 <div className="flex justify-between px-[20px]">
                                     <button className="py-[6px] px-[7px] border border-black hover:bg-black hover:text-white rounded-md transition-colors duration-200 ease-in-out">Detail Product</button>
-                                    <label onClick={() => {handleAddToCart(product.title, product.price, product.image)}} className="self-center"><img className="object-contain w-[20px] h-[20px]" src={CartIcon}></img></label>
+                                    <button onClick={() => {handleAddToCart(product.title, product.price, product.image)}} className="self-center"><img className="object-contain w-[20px] h-[20px]" src={CartIcon}></img></button>
                                 </div>
                             </div>
                         )

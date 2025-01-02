@@ -42,9 +42,9 @@ const Cart = () => {
                                 <div className="place-self-end flex flex-col justify-between h-full">
                                     <p className="self-center text-[18px] font-bold">{formatter.format(product.price * product.amount)}</p>
                                     <div className="flex justify-between items-center w-[100px] h-[40px] px-[10px]">
-                                        <label onClick={() => {handlePlusAmount(index)}}><img className="object-contain w-[20px] h-[20px]" src={PlusIcon}></img></label>
+                                        <button onClick={() => {handlePlusAmount(index)}}><img className="object-contain w-[20px] h-[20px]" src={PlusIcon}></img></button>
                                         <p>{product.amount}</p>
-                                        <label onClick={() => {handleMinusAmount(index)}}><img className="object-contain w-[20px] h-[20px]" src={MinusIcon}></img></label>
+                                        <button onClick={() => {handleMinusAmount(index)}}><img className="object-contain w-[20px] h-[20px]" src={MinusIcon}></img></button>
                                     </div>
                                 </div>
                             </div>
