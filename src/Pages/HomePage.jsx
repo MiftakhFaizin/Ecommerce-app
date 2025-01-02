@@ -5,7 +5,7 @@ import CartIcon from "../assets/shopping-cart-icon.png"
 
 const HomePage = () => {
     const dataProducts = useSelector(state => state.dataProducts)
-    const [dataProductsFiltered, setDataProductFiltered] = useState([])
+    const [dataToRender, setDataToRender] = useState([])
     const { category }  = useParams()
     const dispatch = useDispatch()
 
@@ -19,7 +19,7 @@ const HomePage = () => {
     }, [])
 
     useEffect(() => {
-        category ? setDataProductFiltered(dataProducts.filter(product => product.category === category)) : setDataProductFiltered(dataProducts)
+        category ? setDataToRender(dataProducts.filter(product => product.category === category)) : setDataToRender(dataProducts)
     }, [dataProducts, category])
 
     const handleAddToCart = (titleProduct, price, productImage) => {
@@ -30,7 +30,7 @@ const HomePage = () => {
         <div className="flex justify-center px-[40px] min-h-screen">
             <div className="container pt-[100px] pb-[50px]">
                 <div className="grid grid-cols-4 gap-x-[15px] gap-y-[20px]">
-                    {dataProductsFiltered.map((product, index) => {
+                    {dataToRender.map((product, index) => {
                         return (
                             <div key={index} className="flex flex-col shadow-sm shadow-slate-800 rounded-md h-[450px] gap-[20px] px-[20px]">
                                 <img className="w-full h-[250px] py-[10px] object-contain" src={product.image}></img>
