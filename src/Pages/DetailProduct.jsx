@@ -1,4 +1,3 @@
-import { useEffect } from "react"
 import { useSelector } from "react-redux"
 import { useParams } from "react-router-dom"
 
@@ -6,10 +5,6 @@ const DetailProduct = () => {
     const { id } = useParams()
     const dataProducts = useSelector(state => state.dataProducts)
     const dataToRender = dataProducts.filter(product => product.id == id)
-
-    useEffect(() => {
-        console.log(id)
-    }, [])
 
     return (
         <div className="flex justify-center">
