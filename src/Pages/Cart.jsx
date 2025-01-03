@@ -1,7 +1,6 @@
 import PlusIcon from "../assets/plus-round-line-icon.png"
 import MinusIcon from "../assets/minus-round-line-icon.png"
 import { useDispatch, useSelector } from "react-redux"
-import { useEffect } from "react"
 
 const Cart = () => {
     const cartProduct = useSelector(state => state.cart)

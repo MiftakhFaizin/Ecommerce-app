@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { useParams } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import CartIcon from "../assets/shopping-cart-icon.png"
 
 const HomePage = () => {
@@ -29,7 +29,7 @@ const HomePage = () => {
     return (
         <div className="flex justify-center px-[40px] min-h-screen">
             <div className="container pt-[100px] pb-[50px]">
-                <div className="grid grid-cols-4 gap-x-[15px] gap-y-[20px]">
+                <div className="grid grid-cols-4 max-lg:grid-cols-3 max-md:grid-cols-2 max-sm:grid-cols-1 gap-x-[15px] gap-y-[20px]">
                     {dataToRender.map((product, index) => {
                         return (
                             <div key={index} className="flex flex-col shadow-sm shadow-slate-800 rounded-md h-[450px] gap-[20px] px-[20px]">
@@ -39,7 +39,7 @@ const HomePage = () => {
                                     <p className="text-black h-[20px]">${product.price}</p>
                                 </div>
                                 <div className="flex justify-between px-[20px]">
-                                    <button className="py-[6px] px-[7px] border border-black hover:bg-black hover:text-white rounded-md transition-colors duration-200 ease-in-out">Detail Product</button>
+                                    <button className="py-[6px] px-[7px] border border-black hover:bg-black hover:text-white rounded-md transition-colors duration-200 ease-in-out"><Link to={`/detail-product/${product.id}`}>Detail Product</Link></button>
                                     <button onClick={() => {handleAddToCart(product.title, product.price, product.image)}} className="self-center"><img className="object-contain w-[20px] h-[20px]" src={CartIcon}></img></button>
                                 </div>
                             </div>

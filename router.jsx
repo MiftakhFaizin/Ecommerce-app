@@ -3,6 +3,7 @@ import LoginPage from "./src/Auth/LoginPage";
 import HomePage from "./src/Pages/HomePage";
 import MainLayout from "./src/Layouts/MainLayout";
 import Cart from "./src/Pages/Cart";
+import DetailProduct from "./src/Pages/DetailProduct";
 
 const router = createBrowserRouter([
     {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
             {
                 path: "/cart",
                 element: <Cart />
+            },
+            {
+                path: "/detail-product/:id",
+                element: <DetailProduct />
             }
         ]
     }
