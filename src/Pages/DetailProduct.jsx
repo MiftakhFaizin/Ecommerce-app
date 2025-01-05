@@ -1,10 +1,17 @@
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { useParams } from "react-router-dom"
+import checkIcon from "../assets/green-checkmark-icon.png"
 
 const DetailProduct = () => {
     const { id } = useParams()
+    const dispatch = useDispatch()
     const dataProducts = useSelector(state => state.dataProducts)
     const dataToRender = dataProducts.filter(product => product.id == id)
+    const idProductstCart = useSelector(state => state.cart).map(product => product.id)
+
+    const handleAddToCart = (idProduct, titleProduct, price, productImage) => {
+        dispatch({type: "ADD_TO_CART", payload: {id: idProduct, titleProduct: titleProduct, price: price, amount: 1, productImage: productImage}})
+    }
 
     return (
         <div className="flex justify-center">
@@ -17,6 +24,11 @@ const DetailProduct = () => {
                                 <p className="font-bold text-[25px]">{product.title}</p>
                                 <p className="font-semibold text-[25px]">${product.price}</p>
                                 <p className="text-[16px] text-slate-600 text-justify">{product.description}</p>
+                                {idProductstCart.includes(product.id) ? 
+                                <button disabled className="flex justify-center items-center gap-2 mt-[20px] py-[10px] px-[20px] bg-black text-white rounded-md">Already In Cart <img className="inline object-contain w-[20px] h-[18px]" src={checkIcon}></img></button>
+                                :
+                                <button onClick={() => {handleAddToCart(product.id, product.title, product.price, product.image)}} className="mt-[20px] py-[10px] px-[20px] bg-black hover:bg-gray-800 text-white rounded-md">Add To Cart</button>
+                                }
                             </div>
                         </div>
                     )
