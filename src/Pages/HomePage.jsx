@@ -6,6 +6,7 @@ import CartIconSucces from "../assets/check-out-icon.png"
 import SkeletonLoader from "../Components/SkeletonLoader"
 
 const HomePage = () => {
+    const userLogin = localStorage.login ? true : false
     const dataProducts = useSelector(state => state.dataProducts)
     const [dataToRender, setDataToRender] = useState([])
     const idProductstCart = useSelector(state => state.cart).map(product => product.id)
@@ -54,7 +55,7 @@ const HomePage = () => {
                                     {idProductstCart.includes(product.id) ?
                                     <button><img className="object-contain w-[20px] h-[20px]" src={CartIconSucces}></img></button>
                                     :
-                                    <button onClick={() => {handleAddToCart(product.id, product.title, product.price, product.image)}}><img className="object-contain w-[20px] h-[20px]" src={CartIcon}></img></button>
+                                    userLogin ? <button onClick={() => {handleAddToCart(product.id, product.title, product.price, product.image)}}><img className="object-contain w-[20px] h-[20px]" src={CartIcon}></img></button> : null
                                     }
                                 </div>
                             </div>

@@ -1,16 +1,27 @@
 import { useDispatch, useSelector } from "react-redux"
 import { useParams } from "react-router-dom"
 import checkIcon from "../assets/green-checkmark-icon.png"
+import { useState } from "react"
+import AlertLogin from "../Components/AlertLogin"
 
 const DetailProduct = () => {
+    const userLogin = localStorage.login ? true : false
     const { id } = useParams()
     const dispatch = useDispatch()
     const dataProducts = useSelector(state => state.dataProducts)
     const dataToRender = dataProducts.filter(product => product.id == id)
     const idProductstCart = useSelector(state => state.cart).map(product => product.id)
+    const [alertLogin, setAlertLogin] = useState(false)
 
     const handleAddToCart = (idProduct, titleProduct, price, productImage) => {
+        userLogin ? 
         dispatch({type: "ADD_TO_CART", payload: {id: idProduct, titleProduct: titleProduct, price: price, amount: 1, productImage: productImage}})
+        :
+        setAlertLogin(true)
+    }
+
+    const closeAlertLogin = () => {
+        setAlertLogin(false)
     }
 
     return (
@@ -34,6 +45,11 @@ const DetailProduct = () => {
                     )
                 })}
             </div>
+            {alertLogin ?
+            <AlertLogin closeAlertLogin={closeAlertLogin} />
+            :
+            null
+            }
         </div>
     )
 }
