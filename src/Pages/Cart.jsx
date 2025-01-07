@@ -1,6 +1,7 @@
 import PlusIcon from "../assets/plus-round-line-icon.png"
 import MinusIcon from "../assets/minus-round-line-icon.png"
 import { useDispatch, useSelector } from "react-redux"
+import { minusAmountProduct, plusAmountProduct } from "../redux/Slices"
 
 const Cart = () => {
     const cartProduct = useSelector(state => state.cart)
@@ -13,15 +14,11 @@ const Cart = () => {
     });
 
     const handlePlusAmount = (index) => {
-        let newCartProduct = [...cartProduct]
-        newCartProduct[index].amount++
-        dispatch({type: "UPDATE_CART", payload: newCartProduct})
+        dispatch(plusAmountProduct(index))
     }
 
     const handleMinusAmount = (index) => {
-        let newCartProduct = [...cartProduct]
-        newCartProduct[index].amount !== 1 ? newCartProduct[index].amount-- : null
-        dispatch({type: "UPDATE_CART", payload: newCartProduct})
+        dispatch(minusAmountProduct(index))
     }
 
     return (

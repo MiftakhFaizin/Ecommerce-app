@@ -4,6 +4,7 @@ import { Link, useParams } from "react-router-dom"
 import CartIcon from "../assets/shopping-cart-icon.png"
 import CartIconSucces from "../assets/check-out-icon.png"
 import SkeletonLoader from "../Components/SkeletonLoader"
+import { addDataProducts, addToCart } from "../redux/Slices"
 
 const HomePage = () => {
     const userLogin = localStorage.login ? true : false
@@ -15,7 +16,7 @@ const HomePage = () => {
     const [loading, setLoading] = useState(false)
 
     const handleAddToCart = (idProduct, titleProduct, price, productImage) => {
-        dispatch({type: "ADD_TO_CART", payload: {id: idProduct, titleProduct: titleProduct, price: price, amount: 1, productImage: productImage}})
+        dispatch(addToCart({id: idProduct, titleProduct: titleProduct, price: price, amount: 1, productImage: productImage}))
     }
 
     useEffect(() => {
@@ -24,7 +25,7 @@ const HomePage = () => {
                 setLoading(true)
                 let response = await fetch("https://fakestoreapi.com/products")
                 response = await response.json()
-                dispatch({type: "ADD_DATA_PRODUCTS", payload: response})
+                dispatch(addDataProducts(response))
             } catch(err) {
                 console.log(err)
             } finally {

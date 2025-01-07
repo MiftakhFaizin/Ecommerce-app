@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom"
 import checkIcon from "../assets/green-checkmark-icon.png"
 import { useState } from "react"
 import AlertLogin from "../Components/AlertLogin"
+import { addToCart } from "../redux/Slices"
 
 const DetailProduct = () => {
     const userLogin = localStorage.login ? true : false
@@ -15,7 +16,7 @@ const DetailProduct = () => {
 
     const handleAddToCart = (idProduct, titleProduct, price, productImage) => {
         userLogin ? 
-        dispatch({type: "ADD_TO_CART", payload: {id: idProduct, titleProduct: titleProduct, price: price, amount: 1, productImage: productImage}})
+        dispatch(addToCart({id: idProduct, titleProduct: titleProduct, price: price, amount: 1, productImage: productImage}))
         :
         setAlertLogin(true)
     }
