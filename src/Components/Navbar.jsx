@@ -1,7 +1,18 @@
-import { NavLink } from "react-router-dom"
+import { NavLink, useNavigate } from "react-router-dom"
 import CartIcon from "../assets/shopping-cart-icon.png"
+import { useDispatch, useSelector } from "react-redux"
+import { logout } from "../redux/Slices"
 
 const Navbar = () => {
+    const userLogin = useSelector(state => state.auth.login)
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+
+    const handleLogout = () => {
+        dispatch(logout())
+        navigate("/LoginPage")
+    }
+
     return (
         <div className="flex justify-center">
             <div className="container px-[40px] py-[15px]">
@@ -14,11 +25,11 @@ const Navbar = () => {
                         <NavLink to="/women's clothing" className={({ isActive }) => (isActive ? "font-sans font-semibold text-red-500 text-[15px]" : "font-sans font-semibold text-black text-[15px]")}>Women's clothing</NavLink>
                     </ul>
                     <ul className="flex gap-[15px] items-center">
-                        {localStorage.login ? <NavLink to="/cart" className="font-sans font-semibold text-black text-[15px]"><img className="w-[25px] h-[25px] object-contain" src={CartIcon} /></NavLink> : null}
-                        {!localStorage.login ? 
+                        {userLogin ? <NavLink to="/cart" className="font-sans font-semibold text-black text-[15px]"><img className="w-[25px] h-[25px] object-contain" src={CartIcon} /></NavLink> : null}
+                        {!userLogin ? 
                         <NavLink to="/LoginPage" className="font-sans font-semibold text-black text-[15px]">Login</NavLink> 
                         : 
-                        <NavLink onClick={() => {localStorage.removeItem("login")}} to="/LoginPage" className="font-sans font-semibold text-black text-[15px]">Logout</NavLink>
+                        <NavLink onClick={handleLogout} to="/LoginPage" className="font-sans font-semibold text-black text-[15px]">Logout</NavLink>
                         }
                     </ul>
                 </div>

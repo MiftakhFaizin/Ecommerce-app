@@ -3,20 +3,21 @@ import { useDispatch, useSelector } from "react-redux"
 import { Link, useParams } from "react-router-dom"
 import CartIcon from "../assets/shopping-cart-icon.png"
 import CartIconSucces from "../assets/check-out-icon.png"
-import SkeletonLoader from "../Components/SkeletonLoader"
 import { addDataProducts, addToCart } from "../redux/Slices"
+import {SkeletonLoaderHomePage} from "../Components/SkeletonLoader"
 
 const HomePage = () => {
-    const userLogin = localStorage.login ? true : false
+    const userLogin = useSelector(state => state.auth.login)
+    const userId = useSelector(state => state.auth.userId)
     const dataProducts = useSelector(state => state.dataProducts)
     const [dataToRender, setDataToRender] = useState([])
-    const idProductstCart = useSelector(state => state.cart).map(product => product.id)
+    const idProductstCart = useSelector(state => state.cart).filter(product => product.userId === userId).map(product => product.id)
     const { category }  = useParams()
     const dispatch = useDispatch()
     const [loading, setLoading] = useState(false)
 
     const handleAddToCart = (idProduct, titleProduct, price, productImage) => {
-        dispatch(addToCart({id: idProduct, titleProduct: titleProduct, price: price, amount: 1, productImage: productImage}))
+        dispatch(addToCart({userId: userId, id: idProduct, titleProduct: titleProduct, price: price, amount: 1, productImage: productImage}))
     }
 
     useEffect(() => {
@@ -38,6 +39,7 @@ const HomePage = () => {
     useEffect(() => {
         category ? setDataToRender(dataProducts.filter(product => product.category === category)) : setDataToRender(dataProducts)
     }, [dataProducts, category])
+
 
     return (
         <div className="flex justify-center min-h-screen">
@@ -63,7 +65,7 @@ const HomePage = () => {
                         )
                     })
                     :
-                    <SkeletonLoader />
+                    <SkeletonLoaderHomePage />
                     }
                 </div>
             </div>

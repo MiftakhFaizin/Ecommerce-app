@@ -1,10 +1,37 @@
+import { useState } from "react"
+import { useDispatch } from "react-redux"
+import { login } from "../redux/Slices"
 import { useNavigate } from "react-router-dom"
 
 const LoginPage = () => {
+    const [usernameInputValue, setUsernameInputValue] = useState("")
+    const [passwordInputValue, setPasswordInputValue] = useState("")
+    const dispatch = useDispatch()
     const navigate = useNavigate()
+
+    const handleUsernameInput = (e) => {
+        setUsernameInputValue(e.target.value)
+    }
+
+    const handlePasswordInput = (e) => {
+        setPasswordInputValue(e.target.value)
+    }
+
     const handleLoginBtn = () => {
-        localStorage.setItem("login", "true")
-        navigate("/")
+        const fetchDataUsers = async () => {
+            let dataUsers = await fetch("https://fakestoreapi.com/users")
+            dataUsers = await dataUsers.json()
+        
+            let findUser = dataUsers.find(user => user.username === usernameInputValue)
+            if(findUser) {
+                if(findUser.password === passwordInputValue) {
+                    dispatch(login(findUser.id))
+                    navigate("/")
+                }
+            } 
+        }
+
+        fetchDataUsers()
     } 
 
     return (
@@ -12,8 +39,8 @@ const LoginPage = () => {
             <div className="flex flex-col justify-around border border-slate-300 rounded-md shadow-md shadow-slate-400 py-[20px] px-[30px]">
                 <p className="font-sans font-bold text-[30px]">Welcome Back!</p>
                 <div className="flex flex-col gap-[25px] py-[40px]">
-                    <input type="text" placeholder="username" className="border-b border-slate-500 outline-none font-sans text-[15px] pb-[10px]"/>
-                    <input type="password" placeholder="password" className="border-b border-slate-500 outline-none font-sans text-[15px] pb-[10px]"/>
+                    <input onChange={handleUsernameInput} type="text" placeholder="username" className="border-b border-slate-500 outline-none font-sans text-[15px] pb-[10px]"/>
+                    <input onChange={handlePasswordInput} type="password" placeholder="password" className="border-b border-slate-500 outline-none font-sans text-[15px] pb-[10px]"/>
                 </div>
                 <button onClick={handleLoginBtn} className="bg-black rounded-md font-sans text-white font-bold py-[7px] px-[10px]">Login</button>
             </div>

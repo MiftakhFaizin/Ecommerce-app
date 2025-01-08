@@ -4,7 +4,8 @@ import { useDispatch, useSelector } from "react-redux"
 import { minusAmountProduct, plusAmountProduct } from "../redux/Slices"
 
 const Cart = () => {
-    const cartProduct = useSelector(state => state.cart)
+    const userId = useSelector(state => state.auth.userId)
+    const cartProduct = useSelector(state => state.cart).filter(product => product.userId === userId)
     const dispatch = useDispatch()
     const formatter = new Intl.NumberFormat('en-US', {
         style: 'currency',
