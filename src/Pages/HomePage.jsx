@@ -4,20 +4,23 @@ import { Link, useParams } from "react-router-dom"
 import CartIcon from "../assets/shopping-cart-icon.png"
 import CartIconSucces from "../assets/check-out-icon.png"
 import { addDataProducts, addToCart } from "../redux/Slices"
-import {SkeletonLoaderHomePage} from "../Components/SkeletonLoader"
+import { SkeletonLoaderHomePage } from "../Components/SkeletonLoader"
 
 const HomePage = () => {
     const userLogin = useSelector(state => state.auth.login)
     const userId = useSelector(state => state.auth.userId)
     const dataProducts = useSelector(state => state.dataProducts)
     const [dataToRender, setDataToRender] = useState([])
-    const idProductstCart = useSelector(state => state.cart).filter(product => product.userId === userId).map(product => product.id)
+    const idProductstCart = useSelector(state => {
+        const cartForUserId = state.cart.find(product => product.userId === userId)
+        return cartForUserId ? cartForUserId.products.map(product => product.idProduct) : []
+    })
     const { category }  = useParams()
     const dispatch = useDispatch()
     const [loading, setLoading] = useState(false)
 
     const handleAddToCart = (idProduct, titleProduct, price, productImage) => {
-        dispatch(addToCart({userId: userId, id: idProduct, titleProduct: titleProduct, price: price, amount: 1, productImage: productImage}))
+        dispatch(addToCart({userId: userId, idProduct: idProduct, titleProduct: titleProduct, price: price, amount: 1, productImage: productImage}))
     }
 
     useEffect(() => {

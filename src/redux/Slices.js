@@ -33,14 +33,41 @@ export const cartSlice = createSlice({
     initialState: [],
     reducers: {
         addToCart: (state, action) => {
-            state.push(action.payload)
+           const { userId, idProduct, titleProduct, price, amount, productImage } = action.payload
+           const isUserIdExist = state.find(product => product.userId === userId)
+           if(isUserIdExist) {
+            isUserIdExist.products.push({
+                userId: userId,
+                idProduct: idProduct,
+                titleProduct: titleProduct,
+                price: price,
+                amount: amount,
+                productImage: productImage
+            })
+           } else {
+            state.push({
+                userId: userId,
+                products: [{
+                    userId: userId,
+                    idProduct: idProduct,
+                    titleProduct: titleProduct,
+                    price: price,
+                    amount: amount,
+                    productImage: productImage
+                }]
+               })
+           }
         },
         plusAmountProduct: (state, action) => {
-            state[action.payload].amount++
+            const { userId, index } = action.payload
+            let product = state.find(product => product.userId === userId)
+            product.products[index].amount++
         },
         minusAmountProduct: (state, action) => {
-           if (state[action.payload].amount > 1) {
-            state[action.payload].amount--
+            const { userId, index } = action.payload
+            let product = state.find(product => product.userId === userId)
+            if(product.products[index].amount > 1) {
+                product.products[index].amount--
            }
         },
     }

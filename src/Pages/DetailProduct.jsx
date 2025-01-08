@@ -12,13 +12,13 @@ const DetailProduct = () => {
     const { id } = useParams()
     const [dataProduct, setDataProduct] = useState([])
     const dispatch = useDispatch()
-    const idProductstCart = useSelector(state => state.cart).filter(product => product.userId === userId).map(product => product.id)
+    const idProductstCart = useSelector(state => state.cart).find(product => product.userId === userId).products.map(product => product.idProduct)
     const [alertLogin, setAlertLogin] = useState(false)
     const [loading, setLoading] = useState(false)
 
     const handleAddToCart = (idProduct, titleProduct, price, productImage) => {
         userLogin ? 
-        dispatch(addToCart({userId: userId, id: idProduct, titleProduct: titleProduct, price: price, amount: 1, productImage: productImage}))
+        dispatch(addToCart({userId: userId, idProduct: idProduct, titleProduct: titleProduct, price: price, amount: 1, productImage: productImage}))
         :
         setAlertLogin(true)
     }

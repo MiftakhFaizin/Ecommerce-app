@@ -5,7 +5,10 @@ import { minusAmountProduct, plusAmountProduct } from "../redux/Slices"
 
 const Cart = () => {
     const userId = useSelector(state => state.auth.userId)
-    const cartProduct = useSelector(state => state.cart).filter(product => product.userId === userId)
+    const cartProducts = useSelector(state => {
+        const cartForUserId = state.cart.find(product => product.userId === userId)
+        return cartForUserId ? cartForUserId.products : []
+    })
     const dispatch = useDispatch()
     const formatter = new Intl.NumberFormat('en-US', {
         style: 'currency',
@@ -14,12 +17,12 @@ const Cart = () => {
         maximumFractionDigits: 1,
     });
 
-    const handlePlusAmount = (index) => {
-        dispatch(plusAmountProduct(index))
+    const handlePlusAmount = (userId, index) => {
+        dispatch(plusAmountProduct({userId: userId, index: index}))
     }
 
-    const handleMinusAmount = (index) => {
-        dispatch(minusAmountProduct(index))
+    const handleMinusAmount = (userId, index) => {
+        dispatch(minusAmountProduct({userId: userId, index: index}))
     }
 
     return (
@@ -27,7 +30,7 @@ const Cart = () => {
             <div className="container px-[40px] pt-[60px]">
                 <p className="font-bold text-[25px]">Your Cart</p>
                 <div className="grid grid-cols-1 pt-[60px] pb-[50px]">
-                    {cartProduct.map((product, index) => {
+                    {cartProducts.map((product, index) => {
                         return (
                             <div key={index} className="grid grid-cols-2 pb-[20px] border-b border-gray-400 py-[40px]">
                                 <div className="flex gap-5">
@@ -39,9 +42,9 @@ const Cart = () => {
                                 <div className="place-self-end flex flex-col justify-between h-full">
                                     <p className="self-center text-[18px] font-bold">{formatter.format(product.price * product.amount)}</p>
                                     <div className="flex justify-between items-center w-[100px] h-[40px] px-[10px]">
-                                        <button onClick={() => {handlePlusAmount(index)}}><img className="object-contain w-[20px] h-[20px]" src={PlusIcon}></img></button>
+                                        <button onClick={() => {handlePlusAmount(product.userId, index)}}><img className="object-contain w-[20px] h-[20px]" src={PlusIcon}></img></button>
                                         <p>{product.amount}</p>
-                                        <button onClick={() => {handleMinusAmount(index)}}><img className="object-contain w-[20px] h-[20px]" src={MinusIcon}></img></button>
+                                        <button onClick={() => {handleMinusAmount(product.userId, index)}}><img className="object-contain w-[20px] h-[20px]" src={MinusIcon}></img></button>
                                     </div>
                                 </div>
                             </div>
