@@ -2,12 +2,14 @@ import { useState } from "react"
 import { useDispatch } from "react-redux"
 import { login } from "../redux/Slices"
 import { useNavigate } from "react-router-dom"
+import { SpinLoaderLogin } from "../Components/SpinLoader"
 
 const LoginPage = () => {
     const [usernameInputValue, setUsernameInputValue] = useState("")
     const [passwordInputValue, setPasswordInputValue] = useState("")
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const [loading, setLoading] = useState(false)
 
     const handleUsernameInput = (e) => {
         setUsernameInputValue(e.target.value)
@@ -19,18 +21,28 @@ const LoginPage = () => {
 
     const handleLoginBtn = () => {
         const fetchDataUsers = async () => {
-            let dataUsers = await fetch("https://fakestoreapi.com/users")
-            dataUsers = await dataUsers.json()
-        
-            let findUser = dataUsers.find(user => user.username === usernameInputValue)
-            if(findUser) {
-                if(findUser.password === passwordInputValue) {
-                    dispatch(login(findUser.id))
-                    navigate("/")
-                }
-            } 
-        }
+            try {
+                setLoading(true)
+                let dataUsers = await fetch("https://fakestoreapi.com/users")
+                dataUsers = await dataUsers.json()
 
+                let findUser = dataUsers.find(user => user.username === usernameInputValue)
+                if(findUser) {
+                    if(findUser.password === passwordInputValue) {
+                        dispatch(login(findUser.id))
+                        navigate("/")
+                    } else {
+                        throw "Wrong password"
+                    }
+                } else {
+                    throw "Wrong username"
+                }
+            } catch(err) {
+                alert(err)
+            } finally {
+                setLoading(false)
+            }
+        }
         fetchDataUsers()
     } 
 
@@ -44,6 +56,11 @@ const LoginPage = () => {
                 </div>
                 <button onClick={handleLoginBtn} className="bg-black rounded-md font-sans text-white font-bold py-[7px] px-[10px]">Login</button>
             </div>
+            {loading ?
+            <SpinLoaderLogin />
+            : 
+            null
+            }
         </div>
     )
 }

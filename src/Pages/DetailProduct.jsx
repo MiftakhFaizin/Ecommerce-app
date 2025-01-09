@@ -12,7 +12,10 @@ const DetailProduct = () => {
     const { id } = useParams()
     const [dataProduct, setDataProduct] = useState([])
     const dispatch = useDispatch()
-    const idProductstCart = useSelector(state => state.cart).find(product => product.userId === userId).products.map(product => product.idProduct)
+    const idProductstCart = useSelector(state => {
+        const cartForUserId = state.cart.find(product => product.userId === userId)
+        return cartForUserId ? cartForUserId.products.map(product => product.idProduct) : []
+    })
     const [alertLogin, setAlertLogin] = useState(false)
     const [loading, setLoading] = useState(false)
 
