@@ -60,20 +60,25 @@ export const cartSlice = createSlice({
         },
         plusAmountProduct: (state, action) => {
             const { userId, index } = action.payload
-            let product = state.find(product => product.userId === userId)
-            product.products[index].amount++
+            let cartForUserId = state.find(product => product.userId === userId)
+            cartForUserId.products[index].amount++
         },
         minusAmountProduct: (state, action) => {
             const { userId, index } = action.payload
-            let product = state.find(product => product.userId === userId)
-            if(product.products[index].amount > 1) {
-                product.products[index].amount--
+            let cartForUserId = state.find(product => product.userId === userId)
+            if(cartForUserId.products[index].amount > 1) {
+               cartForUserId.products[index].amount--
            }
         },
+        DeleteProduct: (state, action) => {
+            const { userId, index } = action.payload
+            let cartForUserId = state.find(product => product.userId === userId)
+            cartForUserId.products.splice(index, 1)
+        }
     }
 })
 
 export const {login, logout} = authSlice.actions
 export const {addDataProducts} = productSlice.actions
-export const {addToCart, plusAmountProduct, minusAmountProduct} = cartSlice.actions
+export const {addToCart, plusAmountProduct, minusAmountProduct, DeleteProduct} = cartSlice.actions
 
