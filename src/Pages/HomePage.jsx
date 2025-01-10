@@ -37,7 +37,7 @@ const HomePage = () => {
                 setLoading(false)
             }
         }
-        dataProducts.length === 0 ? fetchData() : null
+        fetchData()
     }, [])
 
     useEffect(() => {
@@ -51,8 +51,8 @@ const HomePage = () => {
                 <div className="grid grid-cols-4 max-lg:grid-cols-3 max-md:grid-cols-2 max-sm:grid-cols-1 gap-x-[15px] gap-y-[20px]">
                     {!loading ? dataToRender.map((product, index) => {
                         return (
-                            <div key={index} className="flex flex-col shadow-sm shadow-slate-800 rounded-md h-[450px] gap-[20px] px-[20px]">
-                                <img className="w-full h-[250px] py-[10px] object-contain" src={product.image}></img>
+                            <div key={index} className="flex flex-col shadow-sm shadow-slate-800 rounded-md h-[400px] gap-[20px] px-[20px]">
+                                <img className="w-full h-[200px] py-[10px] object-contain" src={product.image}></img>
                                 <div className="flex flex-col h-[80px] gap-[10px]">
                                     <p className="text-black font-bold w-full h-[50px] line-clamp-2">{product.title}</p>
                                     <p className="text-black h-[20px]">${product.price}</p>
