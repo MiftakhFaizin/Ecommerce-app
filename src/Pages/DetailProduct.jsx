@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux"
 import { useParams } from "react-router-dom"
 import checkIcon from "../assets/green-checkmark-icon.png"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useMemo } from "react"
 import AlertLogin from "../Components/AlertLogin"
 import { addToCart } from "../redux/Slices"
 import { SkeletonLoaderDetailProduct } from "../Components/SkeletonLoader"
@@ -12,10 +12,11 @@ const DetailProduct = () => {
     const { id } = useParams()
     const [dataProduct, setDataProduct] = useState([])
     const dispatch = useDispatch()
-    const idProductstCart = useSelector(state => {
-        const cartForUserId = state.cart.find(product => product.userId === userId)
+    const cart = useSelector(state => state.cart)
+    const idProductsCart = useMemo(() => {
+        const cartForUserId = cart.find(product => product.userId === userId)
         return cartForUserId ? cartForUserId.products.map(product => product.idProduct) : []
-    })
+    }, [userId, cart])
     const [alertLogin, setAlertLogin] = useState(false)
     const [loading, setLoading] = useState(false)
 
@@ -59,7 +60,7 @@ const DetailProduct = () => {
                         <p className="font-bold text-[25px]">{dataProduct.title}</p>
                         <p className="font-semibold text-[25px]">${dataProduct.price}</p>
                         <p className="text-[16px] text-slate-600 text-justify">{dataProduct.description}</p>
-                        {idProductstCart.includes(dataProduct.id) ? 
+                        {idProductsCart.includes(dataProduct.id) ? 
                         <button disabled className="flex justify-center items-center gap-2 mt-[20px] py-[10px] px-[20px] bg-black text-white rounded-md">Already In Cart <img className="inline object-contain w-[20px] h-[18px]" src={checkIcon}></img></button>
                         :
                         <button onClick={() => {handleAddToCart(dataProduct.id, dataProduct.title, dataProduct.price, dataProduct.image)}} className="mt-[20px] py-[10px] px-[20px] bg-black hover:bg-gray-800 text-white rounded-md">Add To Cart</button>

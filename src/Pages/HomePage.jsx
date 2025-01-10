@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Link, useParams } from "react-router-dom"
 import CartIcon from "../assets/shopping-cart-icon.png"
@@ -11,10 +11,11 @@ const HomePage = () => {
     const userId = useSelector(state => state.auth.userId)
     const dataProducts = useSelector(state => state.dataProducts)
     const [dataToRender, setDataToRender] = useState([])
-    const idProductstCart = useSelector(state => {
-        const cartForUserId = state.cart.find(product => product.userId === userId)
+    const cart = useSelector(state => state.cart)
+    const idProductsCart = useMemo(() => {
+        const cartForUserId = cart.find(product => product.userId === userId)
         return cartForUserId ? cartForUserId.products.map(product => product.idProduct) : []
-    })
+    }, [userId, cart])
     const { category }  = useParams()
     const dispatch = useDispatch()
     const [loading, setLoading] = useState(false)
@@ -58,7 +59,7 @@ const HomePage = () => {
                                 </div>
                                 <div className="flex justify-between">
                                     <button className="py-[6px] px-[7px] border border-black hover:bg-black hover:text-white rounded-md transition-colors duration-200 ease-in-out"><Link to={`/detail-product/${product.id}`}>Detail Product</Link></button>
-                                    {idProductstCart.includes(product.id) ?
+                                    {idProductsCart.includes(product.id) ?
                                     <button><img className="object-contain w-[20px] h-[20px]" src={CartIconSucces}></img></button>
                                     :
                                     userLogin ? <button onClick={() => {handleAddToCart(product.id, product.title, product.price, product.image)}}><img className="object-contain w-[20px] h-[20px]" src={CartIcon}></img></button> : null
