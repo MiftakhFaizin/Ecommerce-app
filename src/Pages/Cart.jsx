@@ -13,6 +13,7 @@ const Cart = () => {
         const cartForUserId = state.cart.find(product => product.userId === userId)
         return cartForUserId ? cartForUserId.products : []
     })
+    const [checkoutProducts, setCheckoutProducts] = useState([])
     const dispatch = useDispatch()
     const formatter = new Intl.NumberFormat('en-US', {
         style: 'currency',
@@ -23,19 +24,27 @@ const Cart = () => {
     const [totalCheckout, setTotalCheckout] = useState(false)
     const [totalPrice, setTotalPrice] = useState(0)
     const navigate = useNavigate()
+    const [alertCheckout, setAlertCheckout] = useState(false)
 
     useEffect(() => {
         userId ? null : navigate("/LoginPage")
     })
 
     useEffect(() => {
-        const total = cartProducts.reduce((acc, product) => {
+        const total = checkoutProducts.reduce((acc, product) => {
             return acc + (product.price * product.amount)
         }, 0)
         setTotalPrice(total)
-    }, [cartProducts])
-    
+    }, [checkoutProducts])
 
+    const handleCheckboxInput = (e, idProduct) => {
+        if(e.target.checked) {
+            setCheckoutProducts([...checkoutProducts, cartProducts.find(product => product.idProduct === idProduct)])
+        } else {
+            const newCheckoutProducts = [...checkoutProducts].filter(product => product.idProduct !== idProduct)
+            setCheckoutProducts(newCheckoutProducts)
+        }
+    }
 
     return (
         <div className="flex justify-center">
@@ -43,7 +52,14 @@ const Cart = () => {
                 <div className="flex justify-between pr-[10px]">
                     <p className="font-bold text-[25px]">Your Cart</p>
                     {cartProducts.length !== 0 ?
-                    <button onClick={() => {setTotalCheckout(true)}} className="py-[6px] px-[7px] border border-black hover:bg-black hover:text-white rounded-md transition-colors duration-200 ease-in-out">Checkout</button>
+                    <button 
+                    onClick={() => {
+                        checkoutProducts.length !== 0 ? setTotalCheckout(true) : setAlertCheckout(true)
+                        setTimeout(() => {
+                            setAlertCheckout(false)
+                        }, 1000)
+                    }} 
+                    className="py-[6px] px-[7px] border border-black hover:bg-black hover:text-white rounded-md transition-colors duration-200 ease-in-out">Checkout <span className="text-red-600 pl-[6px]">{checkoutProducts.length}</span></button>
                     :
                     null
                     }
@@ -53,7 +69,8 @@ const Cart = () => {
                     {cartProducts.map((product, index) => {
                         return (
                             <div key={index} className="grid grid-cols-2 pb-[20px] border-b border-gray-400 py-[40px]">
-                                <div className="flex">
+                                <div className="flex gap-10">
+                                    <input onChange={(e) => {handleCheckboxInput(e, product.idProduct)}} className="transform scale-[1.3]" type="checkbox"></input>
                                     <img className="w-[150px] h-[180px] object-contain flex-shrink-0" src={product.productImage}></img>
                                     <div className="flex flex-col justify-around pl-[30px]">
                                         <p className="text-[18px] font-bold">{product.titleProduct}</p>
@@ -85,7 +102,7 @@ const Cart = () => {
                         <button onClick={() => setTotalCheckout(false)} className="mt-[10px] mr-[10px]"><img className="object-contain w-[15px] h-[15px]" src={CloseIcon}></img></button>
                     </div>
                     <div className="flex flex-col max-h-[400px] w-[800px] mt-[40px] rounded-md overflow-y-auto">
-                        {cartProducts.map((product, index) => {
+                        {checkoutProducts.map((product, index) => {
                             return (
                                 <div key={index} className="flex justify-between py-[20px] px-[20px] border-b border-slate-400">
                                     <div className="flex gap-[30px]">
@@ -107,6 +124,11 @@ const Cart = () => {
             </div>
             :
             null
+            }
+            {alertCheckout &&
+            <div className="fixed flex justify-center items-center w-[400px] h-[100px] top-[150px] left-[50] bg-black opacity-50 rounded-md">
+                <p className="text-white text-[18px]">Choose atleast one product</p>
+            </div>
             }
         </div>
     )

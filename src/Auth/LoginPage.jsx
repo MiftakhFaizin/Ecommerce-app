@@ -47,8 +47,8 @@ const LoginPage = () => {
     } 
 
     return (
-        <div className="flex justify-center items-center h-screen">
-            <div className="flex flex-col justify-around border border-slate-300 rounded-md shadow-md shadow-slate-400 py-[20px] px-[30px]">
+        <div className="flex justify-center items-center h-screen bg-gray-200">
+            <div className="flex flex-col justify-around bg-white border border-slate-300 rounded-md shadow-md shadow-slate-400 py-[20px] px-[30px]">
                 <p className="font-sans font-bold text-[30px]">Welcome Back!</p>
                 <div className="flex flex-col gap-[25px] py-[40px]">
                     <input onChange={handleUsernameInput} type="text" placeholder="username" className="border-b border-slate-500 outline-none font-sans text-[15px] pb-[10px]"/>

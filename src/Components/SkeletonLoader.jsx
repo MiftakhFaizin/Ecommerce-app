@@ -3,7 +3,7 @@ export const SkeletonLoaderHomePage = () => {
     return (
         Array.from({length: 20}).map((_, index) => {
             return (
-                <div key={index} className="flex flex-col h-[450px] gap-[20px] px-[20px] animate-pulse">
+                <div key={index} className="flex flex-col h-[300px] gap-[20px] px-[20px] animate-pulse">
                     <div className="w-full h-[250px] py-[10px] bg-gray-200"></div>
                     <div className="flex flex-col h-[80px] gap-[10px]">
                         <div className="h-[18px] w-full bg-gray-200"></div>

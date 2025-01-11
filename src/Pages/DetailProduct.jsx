@@ -18,7 +18,9 @@ const DetailProduct = () => {
         return cartForUserId ? cartForUserId.products.map(product => product.idProduct) : []
     }, [userId, cart])
     const [alertLogin, setAlertLogin] = useState(false)
+    const [error, setError] = useState(false)
     const [loading, setLoading] = useState(false)
+    const [tryAgainButton, setTryAgainButton] = useState(false)
 
     const handleAddToCart = (idProduct, titleProduct, price, productImage) => {
         userLogin ? 
@@ -37,8 +39,10 @@ const DetailProduct = () => {
                 setLoading(true)
                 let response = await fetch(`https://fakestoreapi.com/products/${id}`)
                 response = await response.json()
+                response && setError(false)
                 setDataProduct(response)
             } catch (err) {
+                setError(true)
                 console.log(err)
             } finally {
                 setLoading(false)
@@ -46,12 +50,19 @@ const DetailProduct = () => {
         }
         
         fetchDataProduct()
-    }, [])
+    }, [tryAgainButton])
 
     return (
         <div className="flex justify-center">
             {loading ? 
             <SkeletonLoaderDetailProduct />
+            : error ?
+            <div className="container h-[80vh] flex justify-center items-center">
+                <div className="flex flex-col gap-5">
+                    <p className="text-slate-500 text-[18px]">Failed to load data</p>
+                    <button onClick={() => {setTryAgainButton(!tryAgainButton)}} className="px-[7px] py-[7px] bg-black hover:bg-slate-900 text-white rounded-md">Try Again</button>
+                </div>
+            </div>
             :
             <div className="container px-[40px] pt-[50px]">
                 <div className="flex justify-center gap-[50px] py-[60px]">
