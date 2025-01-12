@@ -10,7 +10,8 @@ const DetailProduct = () => {
     const userLogin = useSelector(state => state.auth.login)
     const userId = useSelector(state => state.auth.userId)
     const { id } = useParams()
-    const [dataProduct, setDataProduct] = useState([])
+    const dataProducts = useSelector(state => state.dataProducts)
+    const [dataProduct, setDataProduct] = useState({})
     const dispatch = useDispatch()
     const cart = useSelector(state => state.cart)
     const idProductsCart = useMemo(() => {
@@ -49,7 +50,7 @@ const DetailProduct = () => {
             }
         }
         
-        fetchDataProduct()
+        dataProducts.length === 0 ? fetchDataProduct() : setDataProduct(dataProducts.find(product => product.id === Number(id)))
     }, [tryAgainButton])
 
     return (

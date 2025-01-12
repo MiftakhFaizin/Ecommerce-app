@@ -33,7 +33,6 @@ const HomePage = () => {
                 setLoading(true)
                 let response = await fetch(`https://fakestoreapi.com/products`)
                 response = await response.json()
-                response && setError(false)
                 response && dispatch(addDataProducts(response))
             } catch (err) {
                 setError(true)
