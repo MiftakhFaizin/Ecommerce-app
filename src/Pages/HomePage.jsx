@@ -23,7 +23,7 @@ const HomePage = () => {
     const [tryAgainButton, setTryAgainButton] = useState(false)
 
     const handleAddToCart = (idProduct, titleProduct, price, productImage) => {
-        dispatch(addToCart({userId: userId, idProduct: idProduct, titleProduct: titleProduct, price: price, amount: 1, productImage: productImage}))
+        dispatch(addToCart({userId, idProduct, titleProduct, price, amount: 1, productImage}))
     }
 
     useEffect(() => {

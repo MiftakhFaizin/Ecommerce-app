@@ -2,16 +2,13 @@ import { NavLink, useNavigate } from "react-router-dom"
 import CartIcon from "../assets/shopping-cart-icon.png"
 import { useDispatch, useSelector } from "react-redux"
 import { logout } from "../redux/Slices"
+import { useState } from "react"
 
 const Navbar = () => {
     const userLogin = useSelector(state => state.auth.login)
     const dispatch = useDispatch()
     const navigate = useNavigate()
-
-    const handleLogout = () => {
-        dispatch(logout())
-        navigate("/LoginPage")
-    }
+    const [logoutConfirm, setLogoutConfirm] = useState(false)
 
     return (
         <div className="flex justify-center">
@@ -29,11 +26,27 @@ const Navbar = () => {
                         {!userLogin ? 
                         <NavLink to="/LoginPage" className="font-sans font-semibold text-black text-[15px]">Login</NavLink> 
                         : 
-                        <NavLink onClick={handleLogout} to="/LoginPage" className="font-sans font-semibold text-black text-[15px]">Logout</NavLink>
+                        <button onClick={() => {setLogoutConfirm(true)}} className="font-sans font-semibold text-black text-[15px]">Logout</button>
                         }
                     </ul>
                 </div>
             </div>
+            {logoutConfirm &&
+            <div className="fixed flex justify-center items-center bg-black bg-opacity-50 top-0 right-0 bottom-0 left-0 z-10">
+                <div className="flex flex-col justify-center items-center gap-[20px] w-[500px] h-[200px] px-[10px] bg-white rounded-md">
+                    <p className="text-[25px] font-bold">Are you sure want to logout?</p>
+                    <div className="flex gap-[20px]">
+                        <button onClick={() => {setLogoutConfirm(false)}} className="bg-black hover:bg-slate-900 px-[15px] py-[7px] text-white rounded-md transition-all duration-300 ease-in-out">Cancel</button>
+                        <button 
+                        onClick={() => {
+                            dispatch(logout())
+                            navigate("LoginPage")
+                        }}
+                        className="bg-red-600 hover:bg-red-500 px-[15px] py-[7px] text-white rounded-md transition-all duration-300 ease-in-out">Logout</button>
+                    </div>
+                </div>
+            </div>
+            }
         </div>
     )
 }

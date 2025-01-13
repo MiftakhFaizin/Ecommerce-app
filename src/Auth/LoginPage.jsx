@@ -60,13 +60,13 @@ const LoginPage = () => {
 
     return (
         <div className="flex justify-center items-center h-screen bg-gradient-to-br from-gray-200 to-gray-400">
-            <div className="flex flex-col justify-around w-[400px] h-[400px] bg-white border border-slate-300 rounded-lg shadow-md shadow-slate-400 py-[20px] px-[30px]">
+            <div className="container flex flex-col justify-around w-[400px] h-[400px] bg-white border border-slate-300 rounded-lg shadow-md shadow-slate-400 py-[20px] px-[30px]">
                 <p className="font-sans font-bold text-[30px] text-center">Welcome Back!</p>
                 <p className="font-sans text-[15px] text-center text-gray-600">Login to your account</p>
                 <div className="flex flex-col pt-[30px]">
                     <input onChange={handleUsernameInput} type="text" placeholder="username" className="border-b border-slate-500 outline-none font-sans text-[15px] pb-[10px]"/>
                     <input onChange={handlePasswordInput} type="password" placeholder="password" className="border-b border-slate-500 outline-none font-sans text-[15px] mt-[25px] pb-[10px]"/>
-                    <p className={`text-red-600 text-[15px] h-[5px] mt-[10px] ${error ? 'visible' : 'invisible'}`}>{error}</p>
+                    <p className={`text-red-600 text-[13px] h-[5px] mt-[10px] ${error ? 'visible' : 'invisible'}`}>{error}</p>
                 </div>
                 <button onClick={handleLoginBtn} className="bg-black rounded-md font-sans text-white font-bold mt-[10px] py-[7px] px-[10px]">Login</button>
             </div>

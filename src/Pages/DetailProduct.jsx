@@ -25,7 +25,7 @@ const DetailProduct = () => {
 
     const handleAddToCart = (idProduct, titleProduct, price, productImage) => {
         userLogin ? 
-        dispatch(addToCart({userId: userId, idProduct: idProduct, titleProduct: titleProduct, price: price, amount: 1, productImage: productImage}))
+        dispatch(addToCart({userId, idProduct, titleProduct, price, amount: 1, productImage}))
         :
         setAlertLogin(true)
     }
@@ -82,10 +82,8 @@ const DetailProduct = () => {
             </div>
             }
             
-            {alertLogin ?
+            {alertLogin &&
             <AlertLogin closeAlertLogin={closeAlertLogin} />
-            :
-            null
             }
         </div>
     )

@@ -4,6 +4,7 @@ import HomePage from "./src/Pages/HomePage";
 import MainLayout from "./src/Layouts/MainLayout";
 import Cart from "./src/Pages/Cart";
 import DetailProduct from "./src/Pages/DetailProduct";
+import SuccesfullCheckout from "./src/Pages/SuccesfullCheckout";
 
 const router = createBrowserRouter([
     {
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
                 element: <DetailProduct />
             }
         ]
+    },
+    {
+        path: "/Sucessfull-checkout",
+        element: <SuccesfullCheckout />,
     }
 ])
 
