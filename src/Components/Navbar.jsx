@@ -1,5 +1,7 @@
 import { NavLink, useNavigate } from "react-router-dom"
 import CartIcon from "../assets/shopping-cart-icon.png"
+import HamburgerIcon from "../assets/hamburger-menu.png"
+import CloseIcon from "../assets/cross-icon.png"
 import { useDispatch, useSelector } from "react-redux"
 import { logout } from "../redux/Slices"
 import { useState } from "react"
@@ -9,17 +11,20 @@ const Navbar = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const [logoutConfirm, setLogoutConfirm] = useState(false)
+    const [hamburgerMenu, setHamburgerMenu] = useState(false)
 
     return (
-        <div className="flex justify-center">
+        <div className="flex justify-center max-md:sticky max-md:top-0 max-md:bg-white max-md:bg-opacity-70 max-md:backdrop-blur-sm">
             <div className="container px-[40px] py-[15px]">
                 <div className="flex justify-between">
-                    <ul className="flex gap-[15px] items-center">
-                        <NavLink to="" className={({ isActive }) => (isActive ? "font-sans font-semibold text-red-500 text-[15px]" : "font-sans font-semibold text-black text-[15px]")}>Home</NavLink>
-                        <NavLink to="/electronics" className={({ isActive }) => (isActive ? "font-sans font-semibold text-red-500 text-[15px]" : "font-sans font-semibold text-black text-[15px]")}>Electronics</NavLink>
-                        <NavLink to="/jewelery" className={({ isActive }) => (isActive ? "font-sans font-semibold text-red-500 text-[15px]" : "font-sans font-semibold text-black text-[15px]")}>Jewelery</NavLink>
-                        <NavLink to="/men's clothing" className={({ isActive }) => (isActive ? "font-sans font-semibold text-red-500 text-[15px]" : "font-sans font-semibold text-black text-[15px]")}>Mens's clothing</NavLink>
-                        <NavLink to="/women's clothing" className={({ isActive }) => (isActive ? "font-sans font-semibold text-red-500 text-[15px]" : "font-sans font-semibold text-black text-[15px]")}>Women's clothing</NavLink>
+                    <button onClick={() => {setHamburgerMenu(true)}} className="md:hidden"><img className="object-contain w-[20px] h-[20px]" src={HamburgerIcon}></img></button>
+                    <ul className={`flex gap-[15px] items-center max-md:fixed max-md:items-start max-md:bg-white max-md:shadow-lg max-md:shadow-slate-500 max-md:-left-[150px] ${hamburgerMenu && "translate-x-[150px]"} max-md:top-0 max-md:h-screen ${hamburgerMenu && "max-md:w-[100vw]"} max-md:flex-col max-md:gap-[40px] max-md:pt-[50px] max-md:pl-[30px] transition-all duration-200 ease-in-out`}>
+                        <button onClick={() => {setHamburgerMenu(false)}} className="w-[20px] h-[20px] "><img className="object-contain" src={CloseIcon}></img></button>
+                        <NavLink onClick={() => {setHamburgerMenu(false)}} to="" className={({ isActive }) => (isActive ? "font-sans font-semibold text-red-500 text-[15px]" : "font-sans font-semibold text-black text-[15px]")}>Home</NavLink>
+                        <NavLink onClick={() => {setHamburgerMenu(false)}} to="/electronics" className={({ isActive }) => (isActive ? "font-sans font-semibold text-red-500 text-[15px]" : "font-sans font-semibold text-black text-[15px]")}>Electronics</NavLink>
+                        <NavLink onClick={() => {setHamburgerMenu(false)}} to="/jewelery" className={({ isActive }) => (isActive ? "font-sans font-semibold text-red-500 text-[15px]" : "font-sans font-semibold text-black text-[15px]")}>Jewelery</NavLink>
+                        <NavLink onClick={() => {setHamburgerMenu(false)}} to="/men's clothing" className={({ isActive }) => (isActive ? "font-sans font-semibold text-red-500 text-[15px]" : "font-sans font-semibold text-black text-[15px]")}>Mens's clothing</NavLink>
+                        <NavLink onClick={() => {setHamburgerMenu(false)}} to="/women's clothing" className={({ isActive }) => (isActive ? "font-sans font-semibold text-red-500 text-[15px]" : "font-sans font-semibold text-black text-[15px]")}>Women's clothing</NavLink>
                     </ul>
                     <ul className="flex gap-[15px] items-center">
                         {userLogin ? <NavLink to="/cart" className="font-sans font-semibold text-black text-[15px]"><img className="w-[25px] h-[25px] object-contain" src={CartIcon} /></NavLink> : null}
