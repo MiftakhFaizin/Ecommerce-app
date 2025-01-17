@@ -42,7 +42,7 @@ const Cart = () => {
 
     return (
         <div className="flex justify-center">
-            <div className="container px-[40px] pt-[60px]">
+            <div className="container px-[40px] max-md:px-[20px] pt-[60px]">
                 <div className="flex justify-between pr-[10px]">
                     <p className="font-bold text-[25px]">Your Cart</p>
                     {cartProducts.length !== 0 ?
