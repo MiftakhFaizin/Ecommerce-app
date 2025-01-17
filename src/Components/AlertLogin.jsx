@@ -8,7 +8,7 @@ const AlertLogin = (props) => {
             <div className="grid grid-rows-3 bg-white shadow-md shadow-slate-600 rounded-md w-[500px] max-md:w-[80vw] h-[200px]">
                 <button onClick={props.closeAlertLogin} className="place-self-end mt-[10px] mr-[10px] self-start"><img className="object-contain w-[15px] h-[15px]" src={CloseIcon}></img></button>
                 <p className="place-self-center text-[18px] mb-[40px] text-red-600 text-center">Please login for add product to cart</p>
-                <button className="place-self-center mr-[20px] mb-[10px] py-[7px] px-[18px] rounded-md bg-black text-white"><Link to="/LoginPage">Login</Link></button>
+                <button className="place-self-center mb-[10px] py-[7px] px-[18px] rounded-md bg-black text-white"><Link to="/LoginPage">Login</Link></button>
             </div>
         </div>
     )
