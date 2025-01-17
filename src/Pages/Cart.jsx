@@ -65,7 +65,7 @@ const Cart = () => {
                             <div key={index} className="grid grid-cols-2 pb-[20px] border-b border-gray-400 py-[40px]">
                                 <div className="flex items-center gap-10">
                                     <input onChange={(e) => {handleCheckboxInput(e, product.idProduct)}} className="transform scale-[1.3]" type="checkbox"></input>
-                                    <img className="w-[150px] h-[180px] max-md:w-[50px] max-md:h-[100px] object-contain flex-shrink-0" src={product.productImage}></img>
+                                    <img className="w-[150px] h-[180px] max-md:w-[50px] max-md:h-[85px] object-contain flex-shrink-0" src={product.productImage}></img>
                                     <div className="flex flex-col justify-between h-full md:pl-[30px]">
                                         <p className="text-[18px] font-bold max-md:line-clamp-2 max-md:w-[100px]">{product.titleProduct}</p>
                                         <button onClick={() => {dispatch(DeleteProduct({userId: product.userId, index: index}))}}><img className="object-contain w-[20px] h-[20px]" src={BinIcon}></img></button>
