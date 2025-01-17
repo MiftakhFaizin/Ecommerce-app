@@ -67,7 +67,7 @@ const Cart = () => {
                                     <input onChange={(e) => {handleCheckboxInput(e, product.idProduct)}} className="transform scale-[1.3]" type="checkbox"></input>
                                     <img className="w-[150px] h-[180px] max-md:w-[50px] max-md:h-[100px] object-contain flex-shrink-0" src={product.productImage}></img>
                                     <div className="flex flex-col justify-between h-full md:pl-[30px]">
-                                        <p className="text-[18px] font-bold max-md:line-clamp-1">{product.titleProduct}</p>
+                                        <p className="text-[18px] font-bold max-md:line-clamp-2 max-md:w-[100px]">{product.titleProduct}</p>
                                         <button onClick={() => {dispatch(DeleteProduct({userId: product.userId, index: index}))}}><img className="object-contain w-[20px] h-[20px]" src={BinIcon}></img></button>
                                     </div>
                                 </div>
@@ -125,7 +125,7 @@ const Cart = () => {
             null
             }
             {alertCheckout &&
-            <div className="fixed flex justify-center items-center w-[400px] h-[100px] top-[150px] left-[50%] transform -translate-x-1/2 bg-black opacity-70 rounded-md">
+            <div className="fixed flex justify-center items-center w-[400px] max-md:w-[90vw] h-[100px] top-[150px] left-[50%] transform -translate-x-1/2 bg-black opacity-70 rounded-md">
                 <p className="text-white text-[18px]">Choose at least one product</p>
             </div>
             }
