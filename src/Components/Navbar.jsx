@@ -14,7 +14,7 @@ const Navbar = () => {
     const [hamburgerMenu, setHamburgerMenu] = useState(false)
 
     return (
-        <div className="flex justify-center max-md:sticky max-md:top-0 max-md:bg-white max-md:bg-opacity-70 max-md:backdrop-blur-sm">
+        <div className="flex justify-center max-md:sticky max-md:top-0 max-md:bg-white max-md:bg-opacity-70 max-md:backdrop-blur-sm max-md:z-20">
             <div className="container px-[40px] py-[15px]">
                 <div className="flex justify-between">
                     <button onClick={() => {setHamburgerMenu(true)}} className="md:hidden"><img className="object-contain w-[20px] h-[20px]" src={HamburgerIcon}></img></button>
@@ -37,9 +37,9 @@ const Navbar = () => {
                 </div>
             </div>
             {logoutConfirm &&
-            <div className="fixed flex justify-center items-center bg-black bg-opacity-50 top-0 right-0 bottom-0 left-0 z-10">
-                <div className="flex flex-col justify-center items-center gap-[20px] w-[500px] h-[200px] px-[10px] bg-white rounded-md">
-                    <p className="text-[25px] font-bold">Are you sure want to logout?</p>
+            <div className="fixed h-screen flex justify-center items-center bg-black bg-opacity-50 top-0 right-0 bottom-0 left-0 z-50">
+                <div className="flex flex-col justify-center items-center gap-[20px] w-[500px] max-md:w-[80vw] h-[200px] px-[10px] bg-white rounded-md">
+                    <p className="text-[25px] font-bold text-center">Are you sure want to logout?</p>
                     <div className="flex gap-[20px]">
                         <button onClick={() => {setLogoutConfirm(false)}} className="bg-black hover:bg-slate-900 px-[15px] py-[7px] text-white rounded-md transition-all duration-300 ease-in-out">Cancel</button>
                         <button 

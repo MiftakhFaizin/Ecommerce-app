@@ -66,9 +66,9 @@ const DetailProduct = () => {
             </div>
             :
             <div className="container px-[40px] pt-[50px]">
-                <div className="flex justify-center gap-[50px] py-[60px]">
-                    <img className=" w-[400px] h-[300px] object-contain" src={dataProduct.image}></img>
-                    <div className="flex flex-col gap-6 w-[500px]">
+                <div className="flex max-md:flex-col justify-center max-md:items-center gap-[50px] py-[60px]">
+                    <img className=" w-[400px] h-[300px] max-md:w-[200px] max-md:h-[150px] object-contain" src={dataProduct.image}></img>
+                    <div className="flex flex-col gap-6 w-[500px] max-md:w-full">
                         <p className="font-bold text-[25px]">{dataProduct.title}</p>
                         <p className="font-semibold text-[25px]">${dataProduct.price}</p>
                         <p className="text-[16px] text-slate-600 text-justify">{dataProduct.description}</p>

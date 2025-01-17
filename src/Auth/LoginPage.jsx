@@ -60,7 +60,7 @@ const LoginPage = () => {
 
     return (
         <div className="flex justify-center items-center h-screen bg-gradient-to-br from-gray-200 to-gray-400">
-            <div className="container flex flex-col justify-around w-[400px] h-[400px] bg-white border border-slate-300 rounded-lg shadow-md shadow-slate-400 py-[20px] px-[30px]">
+            <div className="container flex flex-col justify-around w-[400px] h-[400px] bg-white border border-slate-300 rounded-lg shadow-md shadow-slate-400 py-[20px] px-[30px] max-md:w-[80vw]">
                 <p className="font-sans font-bold text-[30px] text-center">Welcome Back!</p>
                 <p className="font-sans text-[15px] text-center text-gray-600">Login to your account</p>
                 <div className="flex flex-col pt-[30px]">

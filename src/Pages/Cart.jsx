@@ -63,17 +63,17 @@ const Cart = () => {
                     {cartProducts.map((product, index) => {
                         return (
                             <div key={index} className="grid grid-cols-2 pb-[20px] border-b border-gray-400 py-[40px]">
-                                <div className="flex gap-10">
+                                <div className="flex items-center gap-10">
                                     <input onChange={(e) => {handleCheckboxInput(e, product.idProduct)}} className="transform scale-[1.3]" type="checkbox"></input>
-                                    <img className="w-[150px] h-[180px] object-contain flex-shrink-0" src={product.productImage}></img>
-                                    <div className="flex flex-col justify-around pl-[30px]">
-                                        <p className="text-[18px] font-bold">{product.titleProduct}</p>
+                                    <img className="w-[150px] h-[180px] max-md:w-[50px] max-md:h-[100px] object-contain flex-shrink-0" src={product.productImage}></img>
+                                    <div className="flex flex-col justify-between h-full md:pl-[30px]">
+                                        <p className="text-[18px] font-bold max-md:line-clamp-1">{product.titleProduct}</p>
                                         <button onClick={() => {dispatch(DeleteProduct({userId: product.userId, index: index}))}}><img className="object-contain w-[20px] h-[20px]" src={BinIcon}></img></button>
                                     </div>
                                 </div>
                                 <div className="place-self-end flex flex-col justify-between h-full">
                                     <p className="self-center text-[18px] font-bold">${(product.price * product.amount).toFixed(2)}</p>
-                                    <div className="flex justify-between items-center w-[100px] h-[40px] px-[10px]">
+                                    <div className="flex justify-between max-md:justify-center max-md:gap-[10px] items-center w-[100px]">
                                         <button onClick={() => {dispatch(plusAmountProduct({userId: product.userId, index: index}))}}><img className="object-contain w-[20px] h-[20px]" src={PlusIcon}></img></button>
                                         <p>{product.amount}</p>
                                         <button onClick={() => {dispatch(minusAmountProduct({userId: product.userId, index: index}))}}><img className="object-contain w-[20px] h-[20px]" src={MinusIcon}></img></button>
@@ -90,18 +90,18 @@ const Cart = () => {
                 }
             </div>
            {totalCheckout ?
-            <div className="flex justify-center items-center fixed bg-black bg-opacity-50 h-screen top-0 right-0 bottom-0 left-0 z-2">
-                <div className="flex flex-col bg-white rounded-md shadow-lg">
+            <div className="flex justify-center items-center fixed bg-black bg-opacity-50 h-screen top-0 right-0 bottom-0 left-0 z-30">
+                <div className="flex flex-col bg-white rounded-md shadow-lg max-md:w-[90vw]">
                     <div className="flex justify-end p-[20px]">
                         <button onClick={() => setTotalCheckout(false)} className="text-gray-500 hover:text-gray-700 transition-colors duration-200"><img className="object-contain w-[15px] h-[15px]" src={CloseIcon}></img></button>
                     </div>
-                    <div className="flex flex-col max-h-[400px] w-[800px] mt-[20px] rounded-md overflow-y-auto">
+                    <div className="flex flex-col max-h-[400px] maxmd:max-h-[70%] w-[800px] max-md:w-full mt-[20px] rounded-md overflow-y-auto">
                         {checkoutProducts.map((product, index) => {
                             return (
                                 <div key={index} className="flex justify-between py-[20px] px-[20px] border-b border-slate-400">
                                     <div className="flex gap-[30px]">
                                         <img className="w-[50px] h-[80px] object-contain flex-shrink-0" src={product.productImage}></img>
-                                        <p className="text-[18px] font-bold self-center pr-[20px]">{product.titleProduct}</p>
+                                        <p className="text-[18px] font-bold self-center pr-[20px] line-clamp-2">{product.titleProduct}</p>
                                     </div>
                                     <div className="pt-[20px] flex-shrink-0">
                                         <p>x {product.amount}</p>
